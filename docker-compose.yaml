@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: medusajs-postgres
+    image: postgres
+    network_mode: host
+    tty: true
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=medusa-db
+
+  backend:
+    container_name: medusajs-backend
+    image: jmflaherty/medusajs-backend
+    network_mode: host
+    tty: true
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@localhost:5432/medusa-db
+      - STORE_CORS=http://localhost:8080
+      - ADMIN_CORS=http://localhost:7000
+    depends_on:
+      - postgres
+
+  admin:
+    container_name: medusajs-admin
+    image: jmflaherty/medusajs-admin
+    network_mode: host
+    depends_on:
+      - backend
+
+  frontend:
+    container_name: medusajs-frontend
+    image: jmflaherty/medusajs-frontend
+    network_mode: host
+    tty: true
+    depends_on:
+      - backend
+
+  playwright:
+    container_name: medusajs-playwright
+    build:
+      context: .
+    profiles:
+      - playwright
+    network_mode: host
+    tty: true
+    volumes:
+      - .:/app/
+    depends_on:
+      - frontend

@@ -1,0 +1,52 @@
+{
+  "name": "exams-agile-engine-estee-lauder-company",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "16.19.0"
+  },
+  "scripts": {
+    "test": "docker compose --profile playwright up --build --force-recreate --renew-anon-volumes",
+    "report": "npx playwright show-report",
+    "metal:test": "npx playwright test",
+    "metal:debug": "npx playwright test --debug",
+    "metal:services": "docker compose up --build --force-recreate --renew-anon-volumes",
+    "docker:build": "docker build -t medusajs-playwright .",
+    "docker:stop": "docker stop medusajs-playwright",
+    "docker:remove": "docker rm medusajs-playwright",
+    "services:stop": "docker compose stop",
+    "services:remove": "docker compose down -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmflaherty/exams-agile-engine-estee-lauder-company.git"
+  },
+  "author": "Juan M. Flaherty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmflaherty/exams-agile-engine-estee-lauder-company/issues"
+  },
+  "homepage": "https://github.com/jmflaherty/exams-agile-engine-estee-lauder-company#readme",
+  "devDependencies": {
+    "@ngneat/falso": "^6.3.2",
+    "@playwright/test": "^1.29.1",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "axios": "^1.2.2",
+    "builder-pattern": "^2.2.0",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "playwright": "^1.29.1",
+    "prettier": "^2.8.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "global": "^4.4.0",
+    "yarn": "^1.22.19"
+  }
+}
