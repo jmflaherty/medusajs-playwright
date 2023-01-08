@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
-    branches: [main, master]
 
 jobs:
   playwright:
@@ -24,17 +23,21 @@ jobs:
       backend:
         image: jmflaherty/medusajs-backend
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/medusa-db
-          STORE_CORS: http://localhost:8080
-          ADMIN_CORS: http://localhost:7000
+          DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-db
+          STORE_CORS: http://frontend:8080
+          ADMIN_CORS: http://admin:7000
         ports:
           - 9000:9000
       admin:
         image: jmflaherty/medusajs-admin
+        env:
+          MEDUSA_BACKEND_URL: http://backend:9000
         ports:
           - 7000:7000
       frontend:
         image: jmflaherty/medusajs-frontend
+        env:
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
         ports:
           - 8080:8080
 
@@ -50,6 +53,8 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        env:
+          MEDUSA_BACKEND_URL: http://backend:9000
         run: npx playwright test
       - name: Upload report
         uses: actions/upload-artifact@v3
@@ -58,3 +63,15 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+        if: always()
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        if: always()
+        with:
+          path: playwright-report-${{ github.event_name }}/
+      - name: Deploy to GitHub Pages
+        if: always()
+        id: deployment
+        uses: actions/deploy-pages@v1

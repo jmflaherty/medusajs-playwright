@@ -28,6 +28,12 @@
    An e-commerce automation demo project.
 </p>
 
+<p align="center">
+   <video controls width=66% autoplay="autoplay" loop="loop">
+      <source src="./static/demo.webm" type="video/webm">
+   </video>
+</p>
+
 ## 🙋 About<a id="about"></a>
 
 Based on [MedusaJS](https://www.medusajs.com), a popular open-source Shopify alternative written with [JavaScript](https://www.javascript.com/) and [TypeScript](https://www.typescriptlang.org/), that runs on [NodeJS](https://nodejs.org/).
@@ -46,7 +52,7 @@ Services are built and run with [Docker](https://www.docker.com), the technology
 
 3. Install NodeJS 16.19.0 (LTS in maintenance).
 
-   > **RECOMMENDED** to use [NVM](https://github.com/nvm-sh/nvm) to manage NodeJS versions.
+   > 💡**RECOMMENDED** to use [NVM](https://github.com/nvm-sh/nvm) to manage NodeJS versions.
    >
    > Install and use the NodeJS version set in the [`.nvmrc`](.nvmrc) with NVM.
    >
@@ -88,7 +94,7 @@ npm run test
 
 This will make use of the [docker-compose.yaml](./docker-compose.yaml) file, which describes the necessary services to recreate the containerized development environment, on which the Playwright validations will be executed.
 
-After setting up the environment, the Playwright application will be packaged and run as a service of its own, according to [Dockerfile_playwright](./Dockerfile_playwright).
+After setting up the environment, the Playwright application will be packaged and run as a service of its own, according to [Dockerfile](./Dockerfile).
 
 ### 🦾 On metal
 
