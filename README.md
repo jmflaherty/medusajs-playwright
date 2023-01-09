@@ -30,7 +30,7 @@
 
 <p align="center">
    <video controls width=66% autoplay="autoplay" loop="loop">
-      <source src="./static/demo.webm" type="video/webm">
+      <source src="./static/demo.mp4" type="video/webm">
    </video>
 </p>
 
