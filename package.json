@@ -11,12 +11,12 @@
     "report": "npx playwright show-report",
     "metal:test": "npx playwright test",
     "metal:debug": "npx playwright test --debug",
-    "metal:services": "docker compose up --build --force-recreate --renew-anon-volumes",
+    "services:start": "docker compose up --build --force-recreate --renew-anon-volumes",
+    "services:stop": "docker compose stop",
+    "services:remove": "docker compose down -v",
     "docker:build": "docker build -t medusajs-playwright .",
     "docker:stop": "docker stop medusajs-playwright",
-    "docker:remove": "docker rm medusajs-playwright",
-    "services:stop": "docker compose stop",
-    "services:remove": "docker compose down -v"
+    "docker:remove": "docker rm medusajs-playwright"
   },
   "repository": {
     "type": "git",

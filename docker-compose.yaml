@@ -26,6 +26,9 @@ services:
   admin:
     container_name: medusajs-admin
     image: jmflaherty/medusajs-admin
+    tty: true
+    environment:
+      - MEDUSA_BACKEND_URL=http://localhost:9000
     network_mode: host
     depends_on:
       - backend
@@ -35,6 +38,8 @@ services:
     image: jmflaherty/medusajs-frontend
     network_mode: host
     tty: true
+    environment:
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
     depends_on:
       - backend
 
@@ -46,6 +51,8 @@ services:
       - playwright
     network_mode: host
     tty: true
+    environment:
+      - STORE_URL=http://localhost:8080
     volumes:
       - .:/app/
     depends_on:
