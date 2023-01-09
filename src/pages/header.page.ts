@@ -13,6 +13,7 @@ export class HeaderPage extends BasePage {
 
   header = this.page.locator("//header");
   storeButton = this.header.locator("//button[text()='Store']");
+  storePopover = this.storeButton.locator("xpath=/../../div");
   titleButton = this.header.locator("//a[text()='Acme']");
   accountButton = this.header.locator("//a[text()='Account']");
   myBagButton = this.header.locator("//button[contains(text(),'My Bag')]");
@@ -25,7 +26,13 @@ export class HeaderPage extends BasePage {
     // As the Store menu is displayed when hovering the Store button,
     // you have to hover something else for it to go away and
     // don't block other elements
-    await this.titleButton.hover();
+    await Promise.all([
+      this.storePopover.waitFor({ state: "hidden" }),
+      this.storePopover.hover({
+        position: { x: -10, y: 0 },
+        force: true
+      })
+    ]);
     return new StorePage(this.page);
   }
 
