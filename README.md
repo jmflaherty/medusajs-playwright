@@ -105,7 +105,7 @@ After setting up the environment, the Playwright application will be packaged an
 Recreate the development environment with:
 
 ```bash
-npm run metal:services
+npm run services:start
 ```
 
 It uses the same [docker-compose.yaml](./docker-compose.yaml) file as before, but excludes the Playwright application so it can be run locally.

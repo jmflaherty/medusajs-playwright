@@ -25,6 +25,7 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-db
           STORE_CORS: http://frontend:8080
           ADMIN_CORS: http://admin:7000
+          TAR_OPTIONS: --no-same-owner
       - image: jmflaherty/medusajs-admin
         environment:
           MEDUSA_BACKEND_URL: http://backend:9000
