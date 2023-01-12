@@ -10,58 +10,28 @@ orbs:
 
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
-  postgres:
+  playwright:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # A list of available CircleCI Docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
     docker:
       - image: cimg/postgres:15.1
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: medusa-db
-    steps:
-      - run:
-          name: Start Postgres
-          command: ""
-
-  backend:
-    docker:
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: medusa-db
       - image: jmflaherty/medusajs-backend
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-db
-      STORE_CORS: http://frontend:8080
-      ADMIN_CORS: http://admin:7000
-    steps:
-      - run:
-          name: Start Backend
-          command: ""
-
-  admin:
-    docker:
+        environment:
+          DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-db
+          STORE_CORS: http://frontend:8080
+          ADMIN_CORS: http://admin:7000
       - image: jmflaherty/medusajs-admin
-    environment:
-      MEDUSA_BACKEND_URL: http://backend:9000
-    steps:
-      - run:
-          name: Start Admin
-          command: ""
-
-  frontend:
-    docker:
+        environment:
+          MEDUSA_BACKEND_URL: http://backend:9000
       - image: jmflaherty/medusajs-frontend
-    environment:
-      NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
-    steps:
-      - run:
-          name: Start Frontend
-          command: ""
+        environment:
+          NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
 
-  playwright:
-    docker:
-      - image: cimg/node
-    environment:
-      MEDUSA_BACKEND_URL: http://backend:9000
     steps:
       - checkout
       - node/install-packages:
@@ -71,26 +41,29 @@ jobs:
           command: npx playwright install --with-deps
       - run:
           name: Run Playwright Tests
+          environment:
+            MEDUSA_BACKEND_URL: http://backend:9000
           command: npm test
 
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
-  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  #   # Below is the definition of your workflow.
+  #   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
+  #   # CircleCI will run this workflow on every commit.
+  #   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   test:
     jobs:
-      - postgres
-      - backend:
-          requires:
-            - postgres
-      - admin:
-          requires:
-            - backend
-      - frontend:
-          requires:
-            - backend
-      - playwright:
-          requires:
-            - frontend
-            - admin
+      - playwright
+#       - postgres
+#       - backend:
+#           requires:
+#             - postgres
+#       - admin:
+#           requires:
+#             - backend
+#       - frontend:
+#           requires:
+#             - backend
+#       - playwright:
+#           requires:
+#             - frontend
+#             - admin
