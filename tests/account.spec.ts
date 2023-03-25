@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
-import { UserInterface } from "../interfaces/user.interface";
-import { AccountPage } from "../pages/account/account.page";
-import { test } from "./base.test";
+import { UserInterface } from "../src/interfaces/user.interface";
+import { AccountPage } from "../src/pages/account/account.page";
+import { test } from "../src/test/base.test";
 
 test("Register user", async ({ homePage }) => {
   let accountPage: AccountPage;
