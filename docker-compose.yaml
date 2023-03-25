@@ -33,18 +33,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    healthcheck:
-      test: [
-          "CMD-SHELL",
-          "curl --request POST http://localhost:9000/admin/auth \
-          --header 'Content-Type: application/json' \
-          --data-raw '{\"email\": \"user@email.com\",\"password\": \"supersecret\"}' \
-          || exit 0"
-        ]
-      interval: 10s
-      timeout: 30s
-      retries: 5
-      start_period: 3s
 
   admin:
     container_name: medusajs-admin
@@ -58,16 +46,6 @@ services:
     depends_on:
       backend:
         condition: service_healthy
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl --request GET --fail http://localhost:7000 -I | exit 0"
-        ]
-      interval: 10s
-      timeout: 30s
-      retries: 5
-      start_period: 5s
 
   frontend:
     container_name: medusajs-frontend
@@ -81,16 +59,6 @@ services:
     depends_on:
       backend:
         condition: service_healthy
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl --request GET --fail http://localhost:8080 -I | exit 0"
-        ]
-      interval: 10s
-      timeout: 30s
-      retries: 5
-      start_period: 5s
 
   playwright:
     container_name: medusajs-playwright
