@@ -4,16 +4,17 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "18.14.2"
+    "node": "18.15.0"
   },
   "scripts": {
     "test": "docker compose --profile playwright up --build --force-recreate --renew-anon-volumes",
     "report": "npx playwright show-report",
     "metal:test": "npx playwright test",
+    "metal:ui": "npx playwright test --ui",
     "metal:debug": "npx playwright test --debug",
     "services:start": "docker compose up --build --force-recreate --renew-anon-volumes",
-    "services:stop": "docker compose stop",
-    "services:remove": "docker compose down -v",
+    "services:stop": "docker compose --profile playwright stop",
+    "services:remove": "docker compose --profile playwright down -v",
     "docker:build": "docker build -t medusajs-playwright .",
     "docker:stop": "docker stop medusajs-playwright",
     "docker:remove": "docker rm medusajs-playwright"
@@ -29,21 +30,21 @@
   },
   "homepage": "https://github.com/jmflaherty/medusajs-playwright#readme",
   "devDependencies": {
-    "@ngneat/falso": "^6.3.2",
-    "@playwright/test": "^1.31.2",
-    "@tsconfig/node16": "^1.0.3",
-    "@types/node": "^18.11.19",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
-    "axios": "^1.2.6",
+    "@ngneat/falso": "^6.4.0",
+    "@playwright/test": "^1.32.1",
+    "@tsconfig/node18": "^1.0.1",
+    "@types/node": "^18.15.9",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "axios": "^1.3.4",
     "builder-pattern": "^2.2.0",
-    "eslint": "^8.30.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "playwright": "^1.31.2",
-    "prettier": "^2.8.4",
+    "playwright": "^1.32.1",
+    "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
   "dependencies": {
     "global": "^4.4.0",

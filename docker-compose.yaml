@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   postgres:
@@ -10,6 +10,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=medusa-db
+    volumes:
+      - postgres:/app/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 2s
 
   backend:
     container_name: medusajs-backend
@@ -20,18 +28,24 @@ services:
       - DATABASE_URL=postgres://postgres:postgres@localhost:5432/medusa-db
       - STORE_CORS=http://localhost:8080
       - ADMIN_CORS=http://localhost:7000
+    volumes:
+      - backend:/app/
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   admin:
     container_name: medusajs-admin
     image: jmflaherty/medusajs-admin
+    network_mode: host
     tty: true
     environment:
       - MEDUSA_BACKEND_URL=http://localhost:9000
-    network_mode: host
+    volumes:
+      - admin:/app/
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
   frontend:
     container_name: medusajs-frontend
@@ -40,8 +54,11 @@ services:
     tty: true
     environment:
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+    volumes:
+      - frontend:/app/
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
   playwright:
     container_name: medusajs-playwright
@@ -54,6 +71,14 @@ services:
     environment:
       - STORE_URL=http://localhost:8080
     volumes:
-      - .:/app/
+      - playwright:/app/
     depends_on:
-      - frontend
+      frontend:
+        condition: service_healthy
+
+volumes:
+  postgres:
+  backend:
+  admin:
+  frontend:
+  playwright:

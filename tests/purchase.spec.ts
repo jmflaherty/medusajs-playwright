@@ -1,8 +1,8 @@
 import { expect } from "@playwright/test";
 import { Builder } from "builder-pattern";
-import { productGenerator } from "../interfaces/product.interface";
-import { MyBagPage } from "../pages/myBag.page";
-import { test } from "./base.test";
+import { productGenerator } from "../src/interfaces/product.interface";
+import { MyBagPage } from "../src/pages/myBag.page";
+import { test } from "../src/test/base.test";
 
 const products = [
   Builder(productGenerator()).build(),
