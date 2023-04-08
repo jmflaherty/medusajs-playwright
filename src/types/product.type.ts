@@ -9,4 +9,4 @@ export const productTypes: ProductInterface[] = [
   { name: "Medusa T-Shirt", price: 19.5, size: "", amountToBuy: 0 }
 ];
 
-export type Product = typeof productTypes[number];
+export type Product = (typeof productTypes)[number];

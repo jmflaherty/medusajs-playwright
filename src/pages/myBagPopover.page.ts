@@ -6,7 +6,8 @@ export class MyBagPopover extends BasePage {
     super(page);
   }
 
-  static myBagPopoverStringLocator = "//div[contains(@id,'headlessui-popover-panel')]";
+  static myBagPopoverStringLocator =
+    "//div[contains(@id,'headlessui-popover-panel')]";
 
   myBagPopover = this.page.locator(MyBagPopover.myBagPopoverStringLocator);
 

@@ -8,4 +8,4 @@ export const countryTypes = [
   "Italy"
 ];
 
-export type Country = typeof countryTypes[number];
+export type Country = (typeof countryTypes)[number];

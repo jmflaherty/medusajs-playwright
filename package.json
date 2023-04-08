@@ -17,7 +17,9 @@
     "services:remove": "docker compose --profile playwright down -v",
     "docker:build": "docker build -t medusajs-playwright .",
     "docker:stop": "docker stop medusajs-playwright",
-    "docker:remove": "docker rm medusajs-playwright"
+    "docker:remove": "docker rm medusajs-playwright",
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "eslint --ext .js,.ts . --fix"
   },
   "repository": {
     "type": "git",
