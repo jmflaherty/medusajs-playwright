@@ -5,7 +5,7 @@ import { Size, sizeTypes } from "../types/size.type";
 export interface ProductInterface {
   name: string;
   price: number;
-  size: Size | "";
+  size: Size | null;
   amountToBuy: number;
 }
 
