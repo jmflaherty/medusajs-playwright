@@ -42,7 +42,7 @@ export class ProductPage extends BasePage {
   });
 
   public async pickSize(size: Size) {
-    await this.productSizes.getByText(size as string, { exact: true }).click();
+    await this.productSizes.getByText(size, { exact: true }).click();
   }
 
   public async pickColor() {
@@ -52,10 +52,8 @@ export class ProductPage extends BasePage {
   public async addToCart(product: ProductInterface) {
     const myBagPopover = new MyBagPopover(this.page);
     await this.productInfo.waitFor({ state: "visible" });
-    product.size != "" ? await this.pickSize(product.size) : {};
-    (await this.productColors.first().isVisible())
-      ? await this.pickColor()
-      : {};
+    if (product.size != null) await this.pickSize(product.size);
+    if (await this.productColors.first().isVisible()) await this.pickColor();
     for (let added = 0; added < product.amountToBuy; added++) {
       await this.addToCartButton.click();
       // When adding a product the MyBagPopover pops up covering the Add to Cart button,
