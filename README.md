@@ -29,6 +29,12 @@
 </p>
 
 <p align="center">
+   <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
+      <img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=alert_status">
+   </a>
+</p>
+
+<p align="center">
    <video controls="controls" width=66% autoplay="autoplay" loop="loop">
       <source src="./static/demo.mp4" type="video/webm">
    </video>
@@ -108,7 +114,7 @@ Recreate the development environment with:
 npm run services:start
 ```
 
-It uses the same [docker-compose.yaml](./docker-compose.yaml) file as before, but excludes the Playwright application so it can be run locally.
+It uses the same [docker-compose.yaml](./docker-compose.yaml) file as before but excludes the Playwright application so it can be run locally.
 
 Once the services are initialized, run Playwright with:
 
