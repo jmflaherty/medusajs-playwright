@@ -11,8 +11,23 @@
       <img alt="Docker" src="./static/docker.webp" width="100" />
    </a>  
 </p>
+
 <h1 align="center">
    MedusaJS Playwright
+   <p align="center">
+      <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
+         <img alt="Security Rating" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=security_rating">
+      </a>
+      <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
+         <img alt="Maintainability Rating" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=sqale_rating">
+      </a>
+      <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
+         <img alt="Code Smells" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=code_smells">
+      </a>
+      <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
+         <img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=alert_status">
+      </a>
+   </p>
 </h1>
 
 <h2 align="center">
@@ -22,16 +37,10 @@
    <a href="#open-reports">Open reports</a> |
    <a href="#license">License</a> |
    <a href="#author">Author</a>
-</h3>
+</h2>
 
 <p align="center">
    An e-commerce automation demo project.
-</p>
-
-<p align="center">
-   <a href="https://sonarcloud.io/summary/new_code?id=jmflaherty_medusajs-playwright">
-      <img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=jmflaherty_medusajs-playwright&metric=alert_status">
-   </a>
 </p>
 
 <p align="center">
