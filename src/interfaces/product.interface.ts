@@ -1,5 +1,5 @@
 import { rand } from "@ngneat/falso";
-import { productTypes } from "../types/product.type";
+import { Product, productTypes } from "../types/product.type";
 import { Size, sizeTypes } from "../types/size.type";
 
 export interface ProductInterface {
@@ -9,13 +9,34 @@ export interface ProductInterface {
   amountToBuy: number;
 }
 
-export const productGenerator = () => {
+export function generateProduct(): Product {
   const product = rand(productTypes) as ProductInterface;
   return {
     ...product,
     ...{
-      size: product.name == "Medusa Coffee Mug" ? "" : rand(sizeTypes),
+      size: product.name == "Medusa Coffee Mug" ? null : rand(sizeTypes),
       amountToBuy: Math.floor(Math.random() * (5 - 1 + 1) + 1)
     }
   };
-};
+}
+
+export function generateProducts(
+  amountOfProducts: number,
+  unique = true
+): Array<Product> {
+  const products = new Array<Product>();
+  do {
+    let newProduct = generateProduct();
+    if (unique) {
+      while (
+        products.find((item) => {
+          return item.name == newProduct.name;
+        })
+      ) {
+        newProduct = generateProduct();
+      }
+      products.push(newProduct);
+    }
+  } while (products.length != amountOfProducts);
+  return products;
+}

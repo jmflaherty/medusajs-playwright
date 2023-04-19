@@ -39,11 +39,9 @@ export class CheckoutPage extends BasePage {
   totalSection = this.findSection("Total", "span");
   checkOutButton = this.totalSection.getByRole("button");
 
-  public async checkOut() {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/order/confirmed/**" }),
-      this.checkOutButton.click()
-    ]);
+  public async checkOut(): Promise<OrderConfirmedPage> {
+    await this.checkOutButton.click();
+    await this.page.waitForURL("**/order/confirmed/**");
     return new OrderConfirmedPage(this.page);
   }
 
@@ -129,13 +127,10 @@ export class CheckoutPage extends BasePage {
       (await this.shippingAddressSection.getAttribute("aria-checked")) !=
       String(shippingAddress.shippingSameAsBilling)
     ) {
-      this.shippingSameAsBillingCheckbox.check();
+      await this.shippingSameAsBillingCheckbox.check();
     }
-
-    await Promise.all([
-      this.deliveryRadioButtons.first().waitFor({ state: "visible" }),
-      this.continueToDeliveryButton.click()
-    ]);
+    await this.continueToDeliveryButton.click();
+    await this.deliveryRadioButtons.first().waitFor({ state: "visible" });
   }
 
   deliverySection = this.page.locator("//h2[text()='Delivery']/../../..");
@@ -143,13 +138,10 @@ export class CheckoutPage extends BasePage {
 
   public async pickDeliveryMethod() {
     const deliveryMethods = await this.deliveryRadioButtons.all();
-
-    await Promise.all([
-      this.paymentRadioButtons.first().waitFor({ state: "visible" }),
-      deliveryMethods[
-        rand(Array.from(Array(deliveryMethods.length).keys()))
-      ].click()
-    ]);
+    await deliveryMethods[
+      rand(Array.from(Array(deliveryMethods.length).keys()))
+    ].click();
+    await this.paymentRadioButtons.first().waitFor({ state: "visible" });
   }
 
   paymentSection = this.page.locator("//h2[text()='Payment']/../../..");

@@ -38,10 +38,8 @@ export class RegisterPage extends BasePage {
     await this.email.fill(user.email);
     await this.phone.fill(user.phone);
     await this.password.fill(user.password);
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/account" }),
-      this.joinButton.click()
-    ]);
+    await this.joinButton.click();
+    await this.page.waitForURL("**/account");
     return [new AccountPage(this.page), user];
   }
 }

@@ -53,10 +53,8 @@ export class MyBagPage extends BasePage {
   goToCheckoutLocator = this.totalSection.getByRole("button");
 
   public async goToCheckout(): Promise<CheckoutPage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/checkout" }),
-      this.goToCheckoutLocator.click()
-    ]);
+    await this.goToCheckoutLocator.click();
+    await this.page.waitForURL("**/checkout");
     return new CheckoutPage(this.page);
   }
 }

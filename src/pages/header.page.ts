@@ -19,10 +19,8 @@ export class HeaderPage extends BasePage {
   myBagButton = this.header.locator("//button[contains(text(),'My Bag')]");
 
   public async openStore(): Promise<StorePage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/store" }),
-      this.storeButton.click()
-    ]);
+    await this.storeButton.click();
+    await this.page.waitForURL("**/store");
     // As the Store menu is displayed when hovering the Store button,
     // you have to hover something else for it to go away and
     // don't block other elements
@@ -37,26 +35,20 @@ export class HeaderPage extends BasePage {
   }
 
   public async openHome(): Promise<HomePage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/" }),
-      this.titleButton.click()
-    ]);
+    await this.titleButton.click();
+    await this.page.waitForURL("**/");
     return new HomePage(this.page);
   }
 
   public async openAccount(): Promise<LoginPage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/account/**" }),
-      this.accountButton.click()
-    ]);
+    await this.accountButton.click();
+    await this.page.waitForURL("**/account/**");
     return new LoginPage(this.page);
   }
 
   public async openMyBag(): Promise<MyBagPage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/cart" }),
-      this.myBagButton.click()
-    ]);
+    await this.myBagButton.click();
+    await this.page.waitForURL("**/cart");
     await new MyBagPopover(this.page).dismissMyBagPopover();
     return new MyBagPage(this.page);
   }

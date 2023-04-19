@@ -26,10 +26,8 @@ export class ListingItemPage extends BasePage {
   }
 
   public async openListing(): Promise<ProductPage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/products/**" }),
-      this.listingLocator.click()
-    ]);
+    await this.listingLocator.click();
+    await this.page.waitForURL("**/products/**");
     return new ProductPage(this.page);
   }
 }

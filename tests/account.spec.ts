@@ -13,14 +13,16 @@ test("Register user", async ({ homePage }) => {
   });
   await test.step(`Verify user data correctness`, async () => {
     const profilePage = await accountPage.openProfile();
-    expect
+    await expect
       .soft(profilePage.name)
       .toHaveText(`${user.firstName} ${user.lastName}`);
-    expect.soft(profilePage.email).toHaveText(user.email);
-    expect.soft(profilePage.phone).toHaveText(user.phone);
-    expect
+    await expect.soft(profilePage.email).toHaveText(user.email);
+    await expect.soft(profilePage.phone).toHaveText(user.phone);
+    await expect
       .soft(profilePage.password)
       .toHaveText("The password is not shown for security reasons");
-    expect.soft(profilePage.billingAddres).toHaveText("No billing address");
+    await expect
+      .soft(profilePage.billingAddres)
+      .toHaveText("No billing address");
   });
 });

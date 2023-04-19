@@ -14,10 +14,8 @@ export class FooterPage extends BasePage {
   sourceCodeButton = this.footer.locator("//a[text()='Source code']");
 
   public async openHome(): Promise<HomePage> {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "**/" }),
-      this.titleButton.click()
-    ]);
+    await this.titleButton.click();
+    await this.page.waitForURL("**/");
     return new HomePage(this.page);
   }
 

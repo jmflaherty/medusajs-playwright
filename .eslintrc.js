@@ -18,6 +18,7 @@ module.exports = {
       "error",
       "always",
       { exceptAfterSingleLine: true }
-    ]
+    ],
+    "@typescript-eslint/no-floating-promises": "error"
   }
 };
