@@ -46,7 +46,7 @@ export class ProductPage extends BasePage {
   }
 
   public async pickColor() {
-    await this.productColors.getByText(rand(["Black", "White"])).click();
+    await rand(await this.productColors.all()).click();
   }
 
   public async addToCart(product: ProductInterface) {

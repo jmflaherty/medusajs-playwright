@@ -31,6 +31,7 @@ const config: PlaywrightTestConfig = {
       : "http://localhost:8080",
     viewport: { width: 1920, height: 1080 },
     screenshot: "on",
+    video: "off",
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure"
   },

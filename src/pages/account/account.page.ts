@@ -45,10 +45,8 @@ export class AccountPage extends BasePage {
   }
 
   public async logOut() {
-    await Promise.all([
-      this.page.waitForNavigation({ url: "/" }),
-      this.logOutButton.click()
-    ]);
+    await this.logOutButton.click();
+    await this.page.waitForURL("/");
     return new HomePage(this.page);
   }
 }

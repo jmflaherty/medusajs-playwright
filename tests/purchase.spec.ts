@@ -1,13 +1,9 @@
 import { expect } from "@playwright/test";
-import { Builder } from "builder-pattern";
-import { productGenerator } from "../src/interfaces/product.interface";
+import { generateProducts } from "../src/interfaces/product.interface";
 import { MyBagPage } from "../src/pages/myBag.page";
 import { test } from "../src/test/base.test";
 
-const products = [
-  Builder(productGenerator()).build(),
-  Builder(productGenerator()).build()
-];
+const products = generateProducts(2);
 
 test("Anonymous purchase", async ({ homePage }) => {
   for (const product of products) {
@@ -31,6 +27,8 @@ test("Anonymous purchase", async ({ homePage }) => {
   await test.step(`Fulfill order`, async () => {
     const checkoutPage = await myBagPage.goToCheckout();
     const orderConfirmedPage = await checkoutPage.completeCheckout();
-    expect.soft(orderConfirmedPage.successfulOrderConfirmation).toBeVisible();
+    await expect
+      .soft(orderConfirmedPage.successfulOrderConfirmation)
+      .toBeVisible();
   });
 });
