@@ -43,10 +43,13 @@
    An e-commerce automation demo project.
 </p>
 
-<p align="center">
+<!-- <p align="center">
    <video controls="controls" width=66% autoplay="autoplay" loop="loop">
-      <source src="./static/demo.mp4" type="video/webm">
+      <source src="./static/demo.mp4" type="video/mp4">
    </video>
+</p> -->
+<p align="center">
+   <img src="./static/demo.gif">
 </p>
 
 ## 🙋 About<a id="about"></a>
