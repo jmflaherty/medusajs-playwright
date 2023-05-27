@@ -4,6 +4,7 @@ import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
 import { HomePage } from "../home.page";
 import { ProfilePage } from "./profile.page";
+import { test } from "@playwright/test";
 
 export class AccountPage extends BasePage {
   header: HeaderPage;
@@ -23,30 +24,40 @@ export class AccountPage extends BasePage {
   logOutButton = this.page.getByRole("button", { name: "Log out" });
 
   public async openOverview() {
-    await this.overview.click();
+    return await test.step("Open Overview", async () => {
+      await this.overview.click();
+    });
   }
 
   public async openProfile() {
-    await Promise.all([
-      this.page
-        .locator(ProfilePage.profileTitleStringLocator)
-        .waitFor({ state: "visible" }),
-      this.profile.click()
-    ]);
-    return new ProfilePage(this.page);
+    return await test.step("Open Profile", async () => {
+      await Promise.all([
+        this.page
+          .locator(ProfilePage.profileTitleStringLocator)
+          .waitFor({ state: "visible" }),
+        this.profile.click()
+      ]);
+      return new ProfilePage(this.page);
+    });
   }
 
   public async openAddresses() {
-    await this.addresses.click();
+    return await test.step("Open Addresses", async () => {
+      await this.addresses.click();
+    });
   }
 
   public async openOrders() {
-    await this.orders.click();
+    return await test.step("Open Orders", async () => {
+      await this.orders.click();
+    });
   }
 
   public async logOut() {
-    await this.logOutButton.click();
-    await this.page.waitForURL("/");
-    return new HomePage(this.page);
+    return await test.step("Log Out", async () => {
+      await this.logOutButton.click();
+      await this.page.waitForURL("/");
+      return new HomePage(this.page);
+    });
   }
 }

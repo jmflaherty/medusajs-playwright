@@ -5,6 +5,7 @@ import { AccountPage } from "./account.page";
 import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
+import { test } from "@playwright/test";
 
 export class RegisterPage extends BasePage {
   header: HeaderPage;
@@ -33,13 +34,15 @@ export class RegisterPage extends BasePage {
   public async register(
     user: UserInterface = Builder(userGenerator()).build()
   ): Promise<[AccountPage, UserInterface]> {
-    await this.firstName.fill(user.firstName);
-    await this.lastName.fill(user.lastName);
-    await this.email.fill(user.email);
-    await this.phone.fill(user.phone);
-    await this.password.fill(user.password);
-    await this.joinButton.click();
-    await this.page.waitForURL("**/account");
-    return [new AccountPage(this.page), user];
+    return await test.step(`Register user ${user.email}`, async () => {
+      await this.firstName.fill(user.firstName);
+      await this.lastName.fill(user.lastName);
+      await this.email.fill(user.email);
+      await this.phone.fill(user.phone);
+      await this.password.fill(user.password);
+      await this.joinButton.click();
+      await this.page.waitForURL("**/account");
+      return [new AccountPage(this.page), user];
+    });
   }
 }

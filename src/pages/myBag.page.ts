@@ -4,6 +4,7 @@ import { BasePage } from "./base.page";
 import { CheckoutPage } from "./checkout.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
+import { test } from "@playwright/test";
 
 export class MyBagPage extends BasePage {
   header: HeaderPage;
@@ -35,26 +36,32 @@ export class MyBagPage extends BasePage {
   );
 
   public async getProductInBag(product: Product): Promise<Locator> {
-    return this.productsInBag.locator(
-      `//span[text()='${product.name}']/../../../..`
-    );
+    return await test.step(`Get Product ${product.name} in Bag`, async () => {
+      return this.productsInBag.locator(
+        `//span[text()='${product.name}']/../../../..`
+      );
+    });
   }
 
   public async getTotalOfProductInBag(product: Product) {
-    return parseFloat(
-      (
-        await (await this.getProductInBag(product))
-          .locator("//span[contains(text(),'€')]")
-          .textContent()
-      )?.slice(1) as string
-    );
+    return await test.step(`Get Total of ${product.name} in Bag`, async () => {
+      return parseFloat(
+        (
+          await (await this.getProductInBag(product))
+            .locator("//span[contains(text(),'€')]")
+            .textContent()
+        )?.slice(1) as string
+      );
+    });
   }
 
   goToCheckoutLocator = this.totalSection.getByRole("button");
 
   public async goToCheckout(): Promise<CheckoutPage> {
-    await this.goToCheckoutLocator.click();
-    await this.page.waitForURL("**/checkout");
-    return new CheckoutPage(this.page);
+    return await test.step("Go to Checkout", async () => {
+      await this.goToCheckoutLocator.click();
+      await this.page.waitForURL("**/checkout");
+      return new CheckoutPage(this.page);
+    });
   }
 }

@@ -6,6 +6,7 @@ import { BasePage } from "./base.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { MyBagPopover } from "./myBagPopover.page";
+import { test } from "@playwright/test";
 
 export class ProductPage extends BasePage {
   header: HeaderPage;
@@ -42,27 +43,35 @@ export class ProductPage extends BasePage {
   });
 
   public async pickSize(size: Size) {
-    await this.productSizes.getByText(size, { exact: true }).click();
+    return await test.step(`Pick Size ${size}`, async () => {
+      await this.productSizes.getByText(size, { exact: true }).click();
+    });
   }
 
   public async pickColor() {
-    await rand(await this.productColors.all()).click();
+    return await test.step("Pick color", async () => {
+      await rand(await this.productColors.all()).click();
+    });
   }
 
   public async addToCart(product: ProductInterface) {
-    const myBagPopover = new MyBagPopover(this.page);
-    await this.productInfo.waitFor({ state: "visible" });
-    if (product.size != null) await this.pickSize(product.size);
-    if (await this.productColors.first().isVisible()) await this.pickColor();
-    for (let added = 0; added < product.amountToBuy; added++) {
-      await this.addToCartButton.click();
-      // When adding a product the MyBagPopover pops up covering the Add to Cart button,
-      // so in order to add more products focus has to be put somewhere else
-      await myBagPopover.dismissMyBagPopover();
-    }
+    return await test.step(`Add ${product.amountToBuy} of ${product.name} to Cart`, async () => {
+      const myBagPopover = new MyBagPopover(this.page);
+      await this.productInfo.waitFor({ state: "visible" });
+      if (product.size != null) await this.pickSize(product.size);
+      if (await this.productColors.first().isVisible()) await this.pickColor();
+      for (let added = 0; added < product.amountToBuy; added++) {
+        await this.addToCartButton.click();
+        // When adding a product the MyBagPopover pops up covering the Add to Cart button,
+        // so in order to add more products focus has to be put somewhere else
+        await myBagPopover.dismissMyBagPopover();
+      }
+    });
   }
 
   public async getPrice(): Promise<number> {
-    return parseInt((await this.productPrice.innerText()).slice(1));
+    return await test.step("Get Price", async () => {
+      return parseInt((await this.productPrice.innerText()).slice(1));
+    });
   }
 }

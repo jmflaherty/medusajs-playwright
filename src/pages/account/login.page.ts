@@ -4,6 +4,7 @@ import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
 import { RegisterPage } from "./register.page";
+import { test } from "@playwright/test";
 
 export class LoginPage extends BasePage {
   header: HeaderPage;
@@ -16,7 +17,9 @@ export class LoginPage extends BasePage {
   }
 
   public async goTo() {
-    await this.page.goto("/account/login");
+    return await test.step("Go To Login Page", async () => {
+      await this.page.goto("/account/login");
+    });
   }
 
   email = this.page.locator('input[name="email"]');
@@ -25,18 +28,22 @@ export class LoginPage extends BasePage {
   joinUsButton = this.page.getByRole("button", { name: "Join us" });
 
   public async logIn(user: UserInterface) {
-    await this.email.fill(user.email);
-    await this.password.fill(user.password);
-    return await this.loginButton.click();
+    return await test.step("Log In", async () => {
+      await this.email.fill(user.email);
+      await this.password.fill(user.password);
+      return await this.loginButton.click();
+    });
   }
 
   public async openRegister(): Promise<RegisterPage> {
-    await Promise.all([
-      this.page
-        .locator(RegisterPage.registerTitleLocatorString)
-        .waitFor({ state: "visible" }),
-      this.joinUsButton.click()
-    ]);
-    return new RegisterPage(this.page);
+    return await test.step("Open Register", async () => {
+      await Promise.all([
+        this.page
+          .locator(RegisterPage.registerTitleLocatorString)
+          .waitFor({ state: "visible" }),
+        this.joinUsButton.click()
+      ]);
+      return new RegisterPage(this.page);
+    });
   }
 }

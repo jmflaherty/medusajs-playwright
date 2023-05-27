@@ -9,6 +9,7 @@ import { BasePage } from "./base.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { OrderConfirmedPage } from "./orderConfirmed.page";
+import { test } from "@playwright/test";
 
 export class CheckoutPage extends BasePage {
   header: HeaderPage;
@@ -27,10 +28,12 @@ export class CheckoutPage extends BasePage {
       .shippingSameAsBilling(true)
       .build()
   ): Promise<OrderConfirmedPage> {
-    await this.fillShippingAddress(shippingAddress);
-    await this.pickDeliveryMethod();
-    await this.pickPaymentMethod();
-    return await this.checkOut();
+    return await test.step("Complete Checkout", async () => {
+      await this.fillShippingAddress(shippingAddress);
+      await this.pickDeliveryMethod();
+      await this.pickPaymentMethod();
+      return await this.checkOut();
+    });
   }
 
   static sectionsStringLocator = "//div[contains(@class,'p-6')]";
@@ -40,9 +43,11 @@ export class CheckoutPage extends BasePage {
   checkOutButton = this.totalSection.getByRole("button");
 
   public async checkOut(): Promise<OrderConfirmedPage> {
-    await this.checkOutButton.click();
-    await this.page.waitForURL("**/order/confirmed/**");
-    return new OrderConfirmedPage(this.page);
+    return await test.step("Check Out", async () => {
+      await this.checkOutButton.click();
+      await this.page.waitForURL("**/order/confirmed/**");
+      return new OrderConfirmedPage(this.page);
+    });
   }
 
   discountSection = this.findSection("Discount", "h3");
@@ -110,47 +115,53 @@ export class CheckoutPage extends BasePage {
   );
 
   public async fillShippingAddress(shippingAddress: ShippingAddressInterface) {
-    await this.email.fill(shippingAddress.email);
-    await this.firstName.fill(shippingAddress.firstName);
-    await this.lastName.fill(shippingAddress.lastName);
-    await this.companyName.fill(shippingAddress.companyName);
-    await this.address.fill(shippingAddress.address);
-    await this.address_apartmentSuiteEtc.fill(
-      shippingAddress.address_apartmentSuiteEtc
-    );
-    await this.postalCode.fill(shippingAddress.postalCode);
-    await this.city.fill(shippingAddress.city);
-    await this.country.selectOption(shippingAddress.country);
-    await this.province.fill(shippingAddress.province);
-    await this.phone.fill(shippingAddress.phone);
-    if (
-      (await this.shippingAddressSection.getAttribute("aria-checked")) !=
-      String(shippingAddress.shippingSameAsBilling)
-    ) {
-      await this.shippingSameAsBillingCheckbox.check();
-    }
-    await this.continueToDeliveryButton.click();
-    await this.deliveryRadioButtons.first().waitFor({ state: "visible" });
+    return await test.step("Fill Shipping Address", async () => {
+      await this.email.fill(shippingAddress.email);
+      await this.firstName.fill(shippingAddress.firstName);
+      await this.lastName.fill(shippingAddress.lastName);
+      await this.companyName.fill(shippingAddress.companyName);
+      await this.address.fill(shippingAddress.address);
+      await this.address_apartmentSuiteEtc.fill(
+        shippingAddress.address_apartmentSuiteEtc
+      );
+      await this.postalCode.fill(shippingAddress.postalCode);
+      await this.city.fill(shippingAddress.city);
+      await this.country.selectOption(shippingAddress.country);
+      await this.province.fill(shippingAddress.province);
+      await this.phone.fill(shippingAddress.phone);
+      if (
+        (await this.shippingAddressSection.getAttribute("aria-checked")) !=
+        String(shippingAddress.shippingSameAsBilling)
+      ) {
+        await this.shippingSameAsBillingCheckbox.check();
+      }
+      await this.continueToDeliveryButton.click();
+      await this.deliveryRadioButtons.first().waitFor({ state: "visible" });
+    });
   }
 
   deliverySection = this.page.locator("//h2[text()='Delivery']/../../..");
   deliveryRadioButtons = this.deliverySection.getByRole("radio");
 
   public async pickDeliveryMethod() {
-    const deliveryMethods = await this.deliveryRadioButtons.all();
-    await deliveryMethods[
-      rand(Array.from(Array(deliveryMethods.length).keys()))
-    ].click();
-    await this.paymentRadioButtons.first().waitFor({ state: "visible" });
+    return await test.step("Pick Delivery Method", async () => {
+      const deliveryMethods = await this.deliveryRadioButtons.all();
+      await deliveryMethods[
+        rand(Array.from(Array(deliveryMethods.length).keys()))
+      ].click();
+      await this.paymentRadioButtons.first().waitFor({ state: "visible" });
+    });
   }
 
   paymentSection = this.page.locator("//h2[text()='Payment']/../../..");
   paymentRadioButtons = this.paymentSection.getByRole("button");
 
   public async pickPaymentMethod() {
-    const paymentMethods = await this.paymentRadioButtons.all();
-    await paymentMethods[
-      rand(Array.from(Array(paymentMethods.length).keys()))
-    ].click();
+    return await test.step("Pick Payment Method", async () => {
+      const paymentMethods = await this.paymentRadioButtons.all();
+      await paymentMethods[
+        rand(Array.from(Array(paymentMethods.length).keys()))
+      ].click();
+    });
   }
 }

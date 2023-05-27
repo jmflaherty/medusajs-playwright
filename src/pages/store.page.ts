@@ -4,6 +4,7 @@ import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { ListingItemPage } from "./listingItem.page";
 import { ProductPage } from "./product.page";
+import { test } from "@playwright/test";
 
 export class StorePage extends BasePage {
   header: HeaderPage;
@@ -22,13 +23,17 @@ export class StorePage extends BasePage {
   listings = this.listingsContainer.locator("//li");
 
   public async getListingItemByName(name: string): Promise<ListingItemPage> {
-    const listing = this.listings
-      .locator(ListingItemPage.textLocatorString)
-      .locator(ListingItemPage.nameLocatorString, { hasText: name });
-    return new ListingItemPage(this.page, listing);
+    return await test.step(`Get Listing ${name}`, async () => {
+      const listing = this.listings
+        .locator(ListingItemPage.textLocatorString)
+        .locator(ListingItemPage.nameLocatorString, { hasText: name });
+      return new ListingItemPage(this.page, listing);
+    });
   }
 
   public async openListingByName(name: string): Promise<ProductPage> {
-    return await (await this.getListingItemByName(name)).openListing();
+    return await test.step(`Open Listing ${name}`, async () => {
+      return await (await this.getListingItemByName(name)).openListing();
+    });
   }
 }

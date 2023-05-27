@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "./base.page";
 import { ProductPage } from "./product.page";
+import { test } from "@playwright/test";
 
 export class ListingItemPage extends BasePage {
   listingLocator: Locator;
@@ -22,12 +23,16 @@ export class ListingItemPage extends BasePage {
   static nameLocatorString = "xpath=/span";
 
   public async getPrice(): Promise<number> {
-    return parseInt((await this.price.innerText()).slice(1));
+    return await test.step("Get Price", async () => {
+      return parseInt((await this.price.innerText()).slice(1));
+    });
   }
 
   public async openListing(): Promise<ProductPage> {
-    await this.listingLocator.click();
-    await this.page.waitForURL("**/products/**");
-    return new ProductPage(this.page);
+    return await test.step("Open Listing", async () => {
+      await this.listingLocator.click();
+      await this.page.waitForURL("**/products/**");
+      return new ProductPage(this.page);
+    });
   }
 }

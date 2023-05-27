@@ -13,10 +13,7 @@ test("Anonymous purchase", async ({ homePage }) => {
       await productPage.addToCart(product);
     });
   }
-  let myBagPage: MyBagPage;
-  await test.step("Open My Bag", async () => {
-    myBagPage = await homePage.header.openMyBag();
-  });
+  const myBagPage: MyBagPage = await homePage.header.openMyBag();
   for (const product of products) {
     await test.step(`Verify total price for ${product.name}(s)`, async () => {
       expect
