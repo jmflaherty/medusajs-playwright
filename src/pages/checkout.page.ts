@@ -1,6 +1,7 @@
 import { rand } from "@ngneat/falso";
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, test } from "@playwright/test";
 import { Builder } from "builder-pattern";
+
 import {
   shippingAddressGenerator,
   ShippingAddressInterface
@@ -9,7 +10,6 @@ import { BasePage } from "./base.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { OrderConfirmedPage } from "./orderConfirmed.page";
-import { test } from "@playwright/test";
 
 export class CheckoutPage extends BasePage {
   static pageName = "Checkout";

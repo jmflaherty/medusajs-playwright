@@ -1,6 +1,6 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
 import { BasePage } from "./base.page";
-import { test } from "@playwright/test";
 
 export class MyBagPopover extends BasePage {
   static pageName = "My Bag Popover";

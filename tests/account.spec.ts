@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test";
+
 import { UserInterface } from "../src/interfaces/user.interface";
 import { AccountPage } from "../src/pages/account/account.page";
 import { test } from "../src/test/base.test";

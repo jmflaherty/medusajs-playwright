@@ -1,10 +1,10 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
 import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
 import { HomePage } from "../home.page";
 import { ProfilePage } from "./profile.page";
-import { test } from "@playwright/test";
 
 export class AccountPage extends BasePage {
   header: HeaderPage;

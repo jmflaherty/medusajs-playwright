@@ -1,11 +1,11 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
 import { Builder } from "builder-pattern";
+
 import { userGenerator, UserInterface } from "../../interfaces/user.interface";
-import { AccountPage } from "./account.page";
 import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
-import { test } from "@playwright/test";
+import { AccountPage } from "./account.page";
 
 export class RegisterPage extends BasePage {
   header: HeaderPage;

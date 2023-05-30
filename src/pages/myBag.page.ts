@@ -1,10 +1,10 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, test } from "@playwright/test";
+
 import { Product } from "../types/product.type";
 import { BasePage } from "./base.page";
 import { CheckoutPage } from "./checkout.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
-import { test } from "@playwright/test";
 
 export class MyBagPage extends BasePage {
   static pageName = "My Bag";

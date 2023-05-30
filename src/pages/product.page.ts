@@ -1,12 +1,12 @@
 import { rand } from "@ngneat/falso";
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
 import { ProductInterface } from "../interfaces/product.interface";
 import { Size } from "../types/size.type";
 import { BasePage } from "./base.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { MyBagPopover } from "./myBagPopover.page";
-import { test } from "@playwright/test";
 
 export class ProductPage extends BasePage {
   static pageName = "Product Page";

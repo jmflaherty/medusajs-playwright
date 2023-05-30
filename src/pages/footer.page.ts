@@ -1,7 +1,7 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
 import { BasePage } from "./base.page";
 import { HomePage } from "./home.page";
-import { test } from "@playwright/test";
 
 export class FooterPage extends BasePage {
   static pageName = "Footer";

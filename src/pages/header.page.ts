@@ -1,11 +1,11 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
+import { LoginPage } from "./account/login.page";
 import { BasePage } from "./base.page";
 import { HomePage } from "./home.page";
-import { LoginPage } from "./account/login.page";
 import { MyBagPage } from "./myBag.page";
 import { MyBagPopover } from "./myBagPopover.page";
 import { StorePage } from "./store.page";
-import { test } from "@playwright/test";
 
 export class HeaderPage extends BasePage {
   static pageName = "Header";

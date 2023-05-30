@@ -6,7 +6,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"]
   },
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint", "prettier", "simple-import-sort"],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -19,6 +19,8 @@ module.exports = {
       "always",
       { exceptAfterSingleLine: true }
     ],
-    "@typescript-eslint/no-floating-promises": "error"
+    "@typescript-eslint/no-floating-promises": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
 };

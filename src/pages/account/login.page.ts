@@ -1,10 +1,10 @@
-import { Page } from "@playwright/test";
+import { Page, test } from "@playwright/test";
+
 import { UserInterface } from "../../interfaces/user.interface";
 import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
 import { RegisterPage } from "./register.page";
-import { test } from "@playwright/test";
 
 export class LoginPage extends BasePage {
   header: HeaderPage;

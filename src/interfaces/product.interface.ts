@@ -1,4 +1,5 @@
 import { rand } from "@ngneat/falso";
+
 import { Product, productTypes } from "../types/product.type";
 import { Size, sizeTypes } from "../types/size.type";
 
