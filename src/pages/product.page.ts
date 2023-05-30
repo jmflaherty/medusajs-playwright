@@ -9,6 +9,8 @@ import { MyBagPopover } from "./myBagPopover.page";
 import { test } from "@playwright/test";
 
 export class ProductPage extends BasePage {
+  static pageName = "Product Page";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -43,19 +45,19 @@ export class ProductPage extends BasePage {
   });
 
   public async pickSize(size: Size) {
-    return await test.step(`Pick Size ${size}`, async () => {
+    return test.step(`${ProductPage.pageName} - Pick Size ${size}`, async () => {
       await this.productSizes.getByText(size, { exact: true }).click();
     });
   }
 
   public async pickColor() {
-    return await test.step("Pick color", async () => {
+    return test.step(`${ProductPage.pageName} - Pick color`, async () => {
       await rand(await this.productColors.all()).click();
     });
   }
 
   public async addToCart(product: ProductInterface) {
-    return await test.step(`Add ${product.amountToBuy} of ${product.name} to Cart`, async () => {
+    return test.step(`${ProductPage.pageName} - Add ${product.amountToBuy} of ${product.name} to Cart`, async () => {
       const myBagPopover = new MyBagPopover(this.page);
       await this.productInfo.waitFor({ state: "visible" });
       if (product.size != null) await this.pickSize(product.size);
@@ -70,7 +72,7 @@ export class ProductPage extends BasePage {
   }
 
   public async getPrice(): Promise<number> {
-    return await test.step("Get Price", async () => {
+    return test.step(`${ProductPage.pageName} - Get Price`, async () => {
       return parseInt((await this.productPrice.innerText()).slice(1));
     });
   }

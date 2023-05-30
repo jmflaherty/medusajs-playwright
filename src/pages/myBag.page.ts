@@ -7,6 +7,8 @@ import { HeaderPage } from "./header.page";
 import { test } from "@playwright/test";
 
 export class MyBagPage extends BasePage {
+  static pageName = "My Bag";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -36,7 +38,7 @@ export class MyBagPage extends BasePage {
   );
 
   public async getProductInBag(product: Product): Promise<Locator> {
-    return await test.step(`Get Product ${product.name} in Bag`, async () => {
+    return test.step(`${MyBagPage.pageName} - Get Product ${product.name} in Bag`, async () => {
       return this.productsInBag.locator(
         `//span[text()='${product.name}']/../../../..`
       );
@@ -44,7 +46,7 @@ export class MyBagPage extends BasePage {
   }
 
   public async getTotalOfProductInBag(product: Product) {
-    return await test.step(`Get Total of ${product.name} in Bag`, async () => {
+    return test.step(`${MyBagPage.pageName} - Get Total of ${product.name} in Bag`, async () => {
       return parseFloat(
         (
           await (await this.getProductInBag(product))
@@ -58,7 +60,7 @@ export class MyBagPage extends BasePage {
   goToCheckoutLocator = this.totalSection.getByRole("button");
 
   public async goToCheckout(): Promise<CheckoutPage> {
-    return await test.step("Go to Checkout", async () => {
+    return test.step(`${MyBagPage.pageName} - Go to Checkout`, async () => {
       await this.goToCheckoutLocator.click();
       await this.page.waitForURL("**/checkout");
       return new CheckoutPage(this.page);

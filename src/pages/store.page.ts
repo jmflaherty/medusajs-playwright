@@ -7,6 +7,8 @@ import { ProductPage } from "./product.page";
 import { test } from "@playwright/test";
 
 export class StorePage extends BasePage {
+  static pageName = "Store";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -23,7 +25,7 @@ export class StorePage extends BasePage {
   listings = this.listingsContainer.locator("//li");
 
   public async getListingItemByName(name: string): Promise<ListingItemPage> {
-    return await test.step(`Get Listing ${name}`, async () => {
+    return test.step(`${StorePage.pageName} - Get Listing ${name}`, async () => {
       const listing = this.listings
         .locator(ListingItemPage.textLocatorString)
         .locator(ListingItemPage.nameLocatorString, { hasText: name });
@@ -32,7 +34,7 @@ export class StorePage extends BasePage {
   }
 
   public async openListingByName(name: string): Promise<ProductPage> {
-    return await test.step(`Open Listing ${name}`, async () => {
+    return test.step(`${StorePage.pageName} - Open Listing ${name}`, async () => {
       return await (await this.getListingItemByName(name)).openListing();
     });
   }

@@ -142,6 +142,21 @@ Use:
 npm run report
 ```
 
+## 😦 Known issues
+
+The `Anonymous purchase` validations may appear to be flaky as they fail from time to time, when in fact they encounter a known issue in MedusaJS with concurrent requests.
+
+The right way to test concurrent requests is with load tests, which is not what this project nor Playwright does.
+
+Refer to the [MedusaJS Issues](https://github.com/medusajs/medusa/issues):
+
+- [Issues with many API calls at the same time. #1834
+](https://github.com/medusajs/medusa/issues/1834)
+- [Got conflict errors while making concurrent order requests. #3206
+](https://github.com/medusajs/medusa/issues/3206)
+- ["Canceled on identification as a pivot, during conflict out checking" on two concurrent complete order requests #3556
+](https://github.com/medusajs/medusa/issues/3556)
+
 ## ⚖️ License<a id="license"></a>
 
 Licensed under [MIT's license](https://opensource.org/licenses/MIT).

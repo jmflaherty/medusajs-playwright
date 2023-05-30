@@ -5,6 +5,7 @@ import { HeaderPage } from "./header.page";
 import { test } from "@playwright/test";
 
 export class HomePage extends BasePage {
+  static pageName = "Home";
   header: HeaderPage;
   footer: FooterPage;
 
@@ -15,7 +16,7 @@ export class HomePage extends BasePage {
   }
 
   public async goTo() {
-    return await test.step("Go to Home", async () => {
+    return test.step(`${HomePage.pageName} - Go to Home`, async () => {
       await this.page.goto("/");
     });
   }

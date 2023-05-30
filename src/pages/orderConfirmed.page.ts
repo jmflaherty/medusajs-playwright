@@ -4,6 +4,8 @@ import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 
 export class OrderConfirmedPage extends BasePage {
+  static pageName = "Order Confirmed";
+
   header: HeaderPage;
   footer: FooterPage;
 

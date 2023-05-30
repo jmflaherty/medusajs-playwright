@@ -23,13 +23,13 @@ export class ListingItemPage extends BasePage {
   static nameLocatorString = "xpath=/span";
 
   public async getPrice(): Promise<number> {
-    return await test.step("Get Price", async () => {
+    return test.step("Get Price", async () => {
       return parseInt((await this.price.innerText()).slice(1));
     });
   }
 
   public async openListing(): Promise<ProductPage> {
-    return await test.step("Open Listing", async () => {
+    return test.step("Open Listing", async () => {
       await this.listingLocator.click();
       await this.page.waitForURL("**/products/**");
       return new ProductPage(this.page);

@@ -12,6 +12,7 @@ import { OrderConfirmedPage } from "./orderConfirmed.page";
 import { test } from "@playwright/test";
 
 export class CheckoutPage extends BasePage {
+  static pageName = "Checkout";
   header: HeaderPage;
   footer: FooterPage;
 
@@ -28,7 +29,7 @@ export class CheckoutPage extends BasePage {
       .shippingSameAsBilling(true)
       .build()
   ): Promise<OrderConfirmedPage> {
-    return await test.step("Complete Checkout", async () => {
+    return test.step(`${CheckoutPage.pageName} - Complete Checkout`, async () => {
       await this.fillShippingAddress(shippingAddress);
       await this.pickDeliveryMethod();
       await this.pickPaymentMethod();
@@ -43,7 +44,7 @@ export class CheckoutPage extends BasePage {
   checkOutButton = this.totalSection.getByRole("button");
 
   public async checkOut(): Promise<OrderConfirmedPage> {
-    return await test.step("Check Out", async () => {
+    return test.step(`${CheckoutPage.pageName} - Check Out`, async () => {
       await this.checkOutButton.click();
       await this.page.waitForURL("**/order/confirmed/**");
       return new OrderConfirmedPage(this.page);
@@ -115,7 +116,7 @@ export class CheckoutPage extends BasePage {
   );
 
   public async fillShippingAddress(shippingAddress: ShippingAddressInterface) {
-    return await test.step("Fill Shipping Address", async () => {
+    return test.step(`${CheckoutPage.pageName} - Fill Shipping Address`, async () => {
       await this.email.fill(shippingAddress.email);
       await this.firstName.fill(shippingAddress.firstName);
       await this.lastName.fill(shippingAddress.lastName);
@@ -144,7 +145,7 @@ export class CheckoutPage extends BasePage {
   deliveryRadioButtons = this.deliverySection.getByRole("radio");
 
   public async pickDeliveryMethod() {
-    return await test.step("Pick Delivery Method", async () => {
+    return test.step(`${CheckoutPage.pageName} - Pick Delivery Method`, async () => {
       const deliveryMethods = await this.deliveryRadioButtons.all();
       await deliveryMethods[
         rand(Array.from(Array(deliveryMethods.length).keys()))
@@ -157,7 +158,7 @@ export class CheckoutPage extends BasePage {
   paymentRadioButtons = this.paymentSection.getByRole("button");
 
   public async pickPaymentMethod() {
-    return await test.step("Pick Payment Method", async () => {
+    return test.step(`${CheckoutPage.pageName} - Pick Payment Method`, async () => {
       const paymentMethods = await this.paymentRadioButtons.all();
       await paymentMethods[
         rand(Array.from(Array(paymentMethods.length).keys()))

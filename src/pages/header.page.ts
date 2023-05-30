@@ -8,6 +8,8 @@ import { StorePage } from "./store.page";
 import { test } from "@playwright/test";
 
 export class HeaderPage extends BasePage {
+  static pageName = "Header";
+
   constructor(page: Page) {
     super(page);
   }
@@ -20,7 +22,7 @@ export class HeaderPage extends BasePage {
   myBagButton = this.header.locator("//button[contains(text(),'My Bag')]");
 
   public async openStore(): Promise<StorePage> {
-    return await test.step("Header - Open Store", async () => {
+    return test.step(`${HeaderPage.pageName} - Open Store`, async () => {
       await this.storeButton.click();
       await this.page.waitForURL("**/store");
       // As the Store menu is displayed when hovering the Store button,
@@ -38,7 +40,7 @@ export class HeaderPage extends BasePage {
   }
 
   public async openHome(): Promise<HomePage> {
-    return await test.step("Open Home", async () => {
+    return test.step(`${HeaderPage.pageName} - Open Home`, async () => {
       await this.titleButton.click();
       await this.page.waitForURL("**/");
       return new HomePage(this.page);
@@ -46,16 +48,15 @@ export class HeaderPage extends BasePage {
   }
 
   public async openAccount(): Promise<LoginPage> {
-    return await test.step("Open Account", async () => {
+    return test.step(`${HeaderPage.pageName} - Open Account`, async () => {
       await this.accountButton.click();
       await this.page.waitForURL("**/account/**");
       return new LoginPage(this.page);
     });
   }
 
-  // @step
   public async openMyBag(): Promise<MyBagPage> {
-    return await test.step("Open My Bag", async () => {
+    return test.step(`${HeaderPage.pageName} - Open My Bag`, async () => {
       await this.myBagButton.click();
       await this.page.waitForURL("**/cart");
       await new MyBagPopover(this.page).dismissMyBagPopover();

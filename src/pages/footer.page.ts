@@ -4,6 +4,8 @@ import { HomePage } from "./home.page";
 import { test } from "@playwright/test";
 
 export class FooterPage extends BasePage {
+  static pageName = "Footer";
+
   constructor(page: Page) {
     super(page);
   }
@@ -15,7 +17,7 @@ export class FooterPage extends BasePage {
   sourceCodeButton = this.footer.locator("//a[text()='Source code']");
 
   public async openHome(): Promise<HomePage> {
-    return await test.step("Footer - Open Home", async () => {
+    return test.step(`${FooterPage.pageName} - Open Home`, async () => {
       await this.titleButton.click();
       await this.page.waitForURL("**/");
       return new HomePage(this.page);
@@ -23,19 +25,19 @@ export class FooterPage extends BasePage {
   }
 
   public async openGithubLink(): Promise<void> {
-    return await test.step("Footer - Open GitHub Link", async () => {
+    return test.step(`${FooterPage.pageName} - Open GitHub Link`, async () => {
       await this.githubButton.click();
     });
   }
 
   public async openDocumentationLink(): Promise<void> {
-    return await test.step("Footer - Open Documentation Link", async () => {
+    return test.step(`${FooterPage.pageName} - Open Documentation Link`, async () => {
       await this.documentationButton.click();
     });
   }
 
   public async openSourceCodeLink(): Promise<void> {
-    return await test.step("Footer - Open Source Code Link", async () => {
+    return test.step(`${FooterPage.pageName} - Open Source Code Link`, async () => {
       await this.sourceCodeButton.click();
     });
   }
