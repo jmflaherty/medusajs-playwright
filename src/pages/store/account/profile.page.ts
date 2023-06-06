@@ -1,11 +1,13 @@
 import { Page } from "@playwright/test";
 
-import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
+import { StoreBasePage } from "../store.base.page";
 import { AccountPage } from "./account.page";
 
-export class ProfilePage extends BasePage {
+export class ProfilePage extends StoreBasePage {
+  static pageName = "Profile";
+
   header: HeaderPage;
   footer: FooterPage;
   account: AccountPage;

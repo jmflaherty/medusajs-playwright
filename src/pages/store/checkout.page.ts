@@ -5,13 +5,13 @@ import { Builder } from "builder-pattern";
 import {
   shippingAddressGenerator,
   ShippingAddressInterface
-} from "../interfaces/shippingAddress.interface";
-import { BasePage } from "./base.page";
+} from "../../interfaces/shippingAddress.interface";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { OrderConfirmedPage } from "./orderConfirmed.page";
+import { StoreBasePage } from "./store.base.page";
 
-export class CheckoutPage extends BasePage {
+export class CheckoutPage extends StoreBasePage {
   static pageName = "Checkout";
   header: HeaderPage;
   footer: FooterPage;

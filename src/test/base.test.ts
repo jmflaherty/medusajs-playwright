@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 
-import { HomePage } from "../pages/home.page";
+import { HomePage } from "../pages/store/home.page";
 
 export const test = base.extend<{ homePage: HomePage }>({
   homePage: async ({ page }, use) => {

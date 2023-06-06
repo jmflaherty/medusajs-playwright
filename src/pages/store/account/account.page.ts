@@ -1,12 +1,14 @@
 import { Page, test } from "@playwright/test";
 
-import { BasePage } from "../base.page";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
 import { HomePage } from "../home.page";
+import { StoreBasePage } from "../store.base.page";
 import { ProfilePage } from "./profile.page";
 
-export class AccountPage extends BasePage {
+export class AccountPage extends StoreBasePage {
+  static pageName = "Account";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -24,13 +26,13 @@ export class AccountPage extends BasePage {
   logOutButton = this.page.getByRole("button", { name: "Log out" });
 
   public async openOverview() {
-    return await test.step("Open Overview", async () => {
+    return await test.step(`${AccountPage.pageName} - Open Overview`, async () => {
       await this.overview.click();
     });
   }
 
   public async openProfile() {
-    return await test.step("Open Profile", async () => {
+    return await test.step(`${AccountPage.pageName} - Open Profile`, async () => {
       await Promise.all([
         this.page
           .locator(ProfilePage.profileTitleStringLocator)
@@ -42,19 +44,19 @@ export class AccountPage extends BasePage {
   }
 
   public async openAddresses() {
-    return await test.step("Open Addresses", async () => {
+    return await test.step(`${AccountPage.pageName} - Open Addresses`, async () => {
       await this.addresses.click();
     });
   }
 
   public async openOrders() {
-    return await test.step("Open Orders", async () => {
+    return await test.step(`${AccountPage.pageName} - Open Orders`, async () => {
       await this.orders.click();
     });
   }
 
   public async logOut() {
-    return await test.step("Log Out", async () => {
+    return await test.step(`${AccountPage.pageName} - Log Out`, async () => {
       await this.logOutButton.click();
       await this.page.waitForURL("/");
       return new HomePage(this.page);

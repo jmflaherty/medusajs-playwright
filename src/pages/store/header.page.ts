@@ -1,13 +1,13 @@
 import { Page, test } from "@playwright/test";
 
 import { LoginPage } from "./account/login.page";
-import { BasePage } from "./base.page";
 import { HomePage } from "./home.page";
 import { MyBagPage } from "./myBag.page";
 import { MyBagPopover } from "./myBagPopover.page";
+import { StoreBasePage } from "./store.base.page";
 import { StorePage } from "./store.page";
 
-export class HeaderPage extends BasePage {
+export class HeaderPage extends StoreBasePage {
   static pageName = "Header";
 
   constructor(page: Page) {

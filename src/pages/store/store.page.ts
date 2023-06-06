@@ -1,12 +1,12 @@
 import { Page, test } from "@playwright/test";
 
-import { BasePage } from "./base.page";
 import { FooterPage } from "./footer.page";
 import { HeaderPage } from "./header.page";
 import { ListingItemPage } from "./listingItem.page";
 import { ProductPage } from "./product.page";
+import { StoreBasePage } from "./store.base.page";
 
-export class StorePage extends BasePage {
+export class StorePage extends StoreBasePage {
   static pageName = "Store";
 
   header: HeaderPage;

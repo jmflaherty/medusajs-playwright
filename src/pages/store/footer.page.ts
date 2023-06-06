@@ -1,9 +1,9 @@
 import { Page, test } from "@playwright/test";
 
-import { BasePage } from "./base.page";
 import { HomePage } from "./home.page";
+import { StoreBasePage } from "./store.base.page";
 
-export class FooterPage extends BasePage {
+export class FooterPage extends StoreBasePage {
   static pageName = "Footer";
 
   constructor(page: Page) {

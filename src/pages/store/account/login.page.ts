@@ -1,12 +1,14 @@
 import { Page, test } from "@playwright/test";
 
-import { UserInterface } from "../../interfaces/user.interface";
-import { BasePage } from "../base.page";
+import { UserInterface } from "../../../interfaces/user.interface";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
+import { StoreBasePage } from "../store.base.page";
 import { RegisterPage } from "./register.page";
 
-export class LoginPage extends BasePage {
+export class LoginPage extends StoreBasePage {
+  static pageName = "Login";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -17,7 +19,7 @@ export class LoginPage extends BasePage {
   }
 
   public async goTo() {
-    return await test.step("Go To Login Page", async () => {
+    return test.step(`${LoginPage.pageName} - Go to`, async () => {
       await this.page.goto("/account/login");
     });
   }
@@ -28,15 +30,15 @@ export class LoginPage extends BasePage {
   joinUsButton = this.page.getByRole("button", { name: "Join us" });
 
   public async logIn(user: UserInterface) {
-    return await test.step("Log In", async () => {
+    return test.step(`${LoginPage.pageName} - Log In`, async () => {
       await this.email.fill(user.email);
       await this.password.fill(user.password);
-      return await this.loginButton.click();
+      await this.loginButton.click();
     });
   }
 
   public async openRegister(): Promise<RegisterPage> {
-    return await test.step("Open Register", async () => {
+    return test.step(`${LoginPage.pageName} - Open Register`, async () => {
       await Promise.all([
         this.page
           .locator(RegisterPage.registerTitleLocatorString)

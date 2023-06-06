@@ -1,13 +1,18 @@
 import { Page, test } from "@playwright/test";
 import { Builder } from "builder-pattern";
 
-import { userGenerator, UserInterface } from "../../interfaces/user.interface";
-import { BasePage } from "../base.page";
+import {
+  userGenerator,
+  UserInterface
+} from "../../../interfaces/user.interface";
 import { FooterPage } from "../footer.page";
 import { HeaderPage } from "../header.page";
+import { StoreBasePage } from "../store.base.page";
 import { AccountPage } from "./account.page";
 
-export class RegisterPage extends BasePage {
+export class RegisterPage extends StoreBasePage {
+  static pageName = "Register";
+
   header: HeaderPage;
   footer: FooterPage;
 
@@ -34,7 +39,7 @@ export class RegisterPage extends BasePage {
   public async register(
     user: UserInterface = Builder(userGenerator()).build()
   ): Promise<[AccountPage, UserInterface]> {
-    return await test.step(`Register user ${user.email}`, async () => {
+    return await test.step(`${RegisterPage.baseUrl} - Register user ${user.email}`, async () => {
       await this.firstName.fill(user.firstName);
       await this.lastName.fill(user.lastName);
       await this.email.fill(user.email);

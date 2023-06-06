@@ -1,8 +1,8 @@
 import { Page, test } from "@playwright/test";
 
-import { BasePage } from "./base.page";
+import { StoreBasePage } from "./store.base.page";
 
-export class MyBagPopover extends BasePage {
+export class MyBagPopover extends StoreBasePage {
   static pageName = "My Bag Popover";
 
   constructor(page: Page) {

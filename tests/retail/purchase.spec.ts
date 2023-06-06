@@ -1,8 +1,8 @@
 import { expect } from "@playwright/test";
 
-import { generateProducts } from "../src/interfaces/product.interface";
-import { MyBagPage } from "../src/pages/myBag.page";
-import { test } from "../src/test/base.test";
+import { generateProducts } from "../../src/interfaces/product.interface";
+import { MyBagPage } from "../../src/pages/store/myBag.page";
+import { test } from "../../src/test/base.test";
 
 const products = generateProducts(2);
 

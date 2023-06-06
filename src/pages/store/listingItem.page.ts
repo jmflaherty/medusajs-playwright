@@ -1,9 +1,9 @@
 import { Locator, Page, test } from "@playwright/test";
 
-import { BasePage } from "./base.page";
 import { ProductPage } from "./product.page";
+import { StoreBasePage } from "./store.base.page";
 
-export class ListingItemPage extends BasePage {
+export class ListingItemPage extends StoreBasePage {
   listingLocator: Locator;
   image: Locator;
   textBase: Locator;
